@@ -49,7 +49,7 @@ export default async function Projects() {
 
                   {/* Project Card Container */}
                   <div className="ml-10 w-full md:ml-0 md:w-5/12">
-                    <ProjectTimelineCard project={project} />
+                    <ProjectCard project={project} />
                   </div>
                 </div>
               );
