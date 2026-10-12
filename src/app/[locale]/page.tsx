@@ -356,7 +356,7 @@ export default async function Home() {
 
             <div className="mt-8 grid gap-5 md:grid-cols-2">
             {projects.slice(0, 4).map((project) => (
-  <TimelinwCard key={project.slug} project={project} />
+  <TimelineCard key={project.slug} project={project} />
 ))}
 
             </div>
