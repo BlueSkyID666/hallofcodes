@@ -1,3 +1,4 @@
+import { projects } from "@/lib/projects";
 import ProjectTimelineCard from "@/components/ui/ProjectCard";
 import { projects } from "@/lib/projects";
 
