@@ -1,60 +1,106 @@
-import { Repo } from "@/lib/github/repositories";
-import { faStar, faCodeFork, faEye } from "@fortawesome/free-solid-svg-icons";
+import { Project } from "@/lib/projects";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 
-export default function ProjectCard({ project }: { project: Repo }) {
+export default function ProjectCard({ project }: { project: Project }) {
+  // Ensure we never pass an empty string to Next.js Image
+  const imageSrc =
+    project.coverImage && project.coverImage.trim() !== ""
+      ? project.coverImage
+      : `https://opengraph.githubassets.com/1/hallofcodes/${project.slug}`;
+
   return (
     <article
-      className="group flex flex-col lg:flex-row items-start gap-4 bg-gray-900 rounded-xl p-4 shadow-sm hover:shadow-lg border border-gray-800 transition-all"
       data-aos="fade-up"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-800/80 bg-gray-900/40 backdrop-blur-sm transition-all duration-300 hover:border-blue-500/40 hover:bg-gray-900/70 hover:shadow-xl hover:shadow-blue-500/5"
     >
-      <div className="w-full lg:w-44 h-28 relative flex-shrink-0 rounded-lg overflow-hidden bg-gray-200">
-        <Image
-          src={`https://opengraph.githubassets.com/1/hallofcodes/${project.name}`}
-          alt={project.name}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-110"
-          loading="lazy"
-        />
-      </div>
-      <div className="flex-1">
-        <h3
-          className="text-lg font-semibold text-white line-clamp-1"
-          title={project.name}
-        >
-          {project.name}
-        </h3>
-        <p
-          className="text-gray-300 mb-4 line-clamp-3"
-          title={project.description || "No description provided."}
-        >
-          {project.description || "No description provided."}
-        </p>
-        <div className="flex flex-wrap items-center gap-4">
+      {/* Cover Image Container */}
+      {imageSrc && (
+        <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-gray-800/80 bg-gray-950">
+          <Image
+            src={imageSrc}
+            alt={`${project.name} cover`}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-900/90 via-transparent to-transparent" />
+        </div>
+      )}
+
+      {/* Card Body */}
+      <div className="flex flex-1 flex-col justify-between p-6">
+        <div>
+          {/* Author Attribution */}
+          {project.author && (
+            <div className="mb-2 flex items-center gap-1.5 text-xs text-gray-500">
+              <span>Maintained by</span>
+              {project.authorUrl ? (
+                <a
+                  href={project.authorUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-medium text-blue-400 transition hover:underline"
+                >
+                  @{project.author}
+                </a>
+              ) : (
+                <span className="font-medium text-gray-300">
+                  @{project.author}
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Title */}
+          <h3 className="text-xl font-bold tracking-tight text-white transition group-hover:text-blue-400">
+            {project.name}
+          </h3>
+
+          {/* Description */}
+          <p className="mt-3 text-sm leading-relaxed text-gray-300">
+            {project.description}
+          </p>
+
+          {/* Tech Stack Tags */}
+          {project.tags && project.tags.length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-1.5">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-md border border-gray-800 bg-gray-950/80 px-2 py-0.5 text-xs font-mono text-gray-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Action Link Footer */}
+        <div className="mt-6 flex items-center justify-end gap-3 border-t border-gray-800/80 pt-4">
+          {project.homepage && (
+            <a
+              href={project.homepage}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-400 transition hover:text-white"
+            >
+              Demo
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-[10px]" />
+            </a>
+          )}
           <a
-            href={project.url}
+            href={project.html_url}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-sm bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-blue-500/20 transition hover:bg-blue-500"
           >
-            <i className="fa-solid fa-arrow-up-right-from-square" aria-hidden />
-            View on GitHub
+            <FontAwesomeIcon icon={faGithub} className="h-3.5 w-3.5" />
+            View Repository
           </a>
-          <div className="flex items-center gap-4 text-sm text-gray-400">
-            <span className="inline-flex items-center gap-1">
-              <FontAwesomeIcon icon={faStar} />
-              {project.stars}
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <FontAwesomeIcon icon={faCodeFork} />
-              {project.forks}
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <FontAwesomeIcon icon={faEye} />
-              {project.watchers}
-            </span>
-          </div>
         </div>
       </div>
     </article>
