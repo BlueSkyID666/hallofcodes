@@ -4,7 +4,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function TimelineCard({ project }: { project: Project }) {
   const imageSrc =
     project.coverImage && project.coverImage.trim() !== ""
       ? project.coverImage
