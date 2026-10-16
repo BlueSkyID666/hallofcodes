@@ -1,7 +1,8 @@
+import { projects } from "@/lib/projects"; 
 import Link from "next/link";
 import Image from "next/image";
 import { getMembers, Member } from "@/lib/github/members";
-import { getRepositories, Repo } from "@/lib/github/repositories";
+import { getRepositories } from "@/lib/github/repositories";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
@@ -11,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import ScrambleText from "@/components/ui/ScrambleText";
-import ProjectCard from "@/components/ui/ProjectCard";
+import TimelineCard from "@/components/ui/TimelineCard";
 import timeline, { TimelineEntry } from "@/lib/timeline";
 import { getRecentPosts, PostEntry } from "@/lib/posts";
 import { fetchTrackedMembers } from "@/lib/wakatime/leaderboards";
@@ -354,9 +355,10 @@ export default async function Home() {
             </div>
 
             <div className="mt-8 grid gap-5 md:grid-cols-2">
-              {repositories.slice(1, 5).map((repository: Repo) => (
-                <ProjectCard key={repository.name} project={repository} />
-              ))}
+            {projects.slice(0, 4).map((project) => (
+  <TimelineCard key={project.slug} project={project} />
+))}
+
             </div>
           </div>
         </section>

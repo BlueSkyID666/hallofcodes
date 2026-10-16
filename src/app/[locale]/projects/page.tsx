@@ -1,130 +1,66 @@
-import ProjectCard from "@/components/ui/ProjectCard";
-import { getMembers } from "@/lib/github/members";
-import { getRepositories, Repo } from "@/lib/github/repositories";
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import TimelineCard from "@/components/ui/TimelineCard";
+import { projects } from "@/lib/projects";
 
 export const metadata: Metadata = {
-  title: "Our Projects - Hall of Codes",
+  title: "Projects | Hall of Codes",
   description:
-    "Look at our projects that demonstrate the creativity and collaboration of our members.",
+    "Explore community-built open-source projects crafted by our builders.",
   alternates: {
     canonical: "https://www.hallofcodes.org/projects",
   },
-  openGraph: {
-    title: "Our Projects - Hall of Codes",
-    description:
-      "Look at our projects that demonstrate the creativity and collaboration of our members.",
-    url: "https://www.hallofcodes.org/projects",
-    siteName: "Hall of Codes",
-    images: [
-      {
-        url: "https://www.hallofcodes.org/hoc-cover.png",
-        width: 1200,
-        height: 630,
-        alt: "Hall of Codes Logo",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Our Projects - Hall of Codes",
-    description:
-      "Look at our projects that demonstrate the creativity and collaboration of our members.",
-    images: [
-      {
-        url: "https://www.hallofcodes.org/hoc-cover.png",
-        width: 1200,
-        height: 630,
-        alt: "Hall of Codes Logo",
-      },
-    ],
-  },
 };
 
-export default async function Projects() {
-  const [repositories, members] = await Promise.all([
-    getRepositories(),
-    getMembers(),
-  ]);
-  const repoCount = repositories.length;
-  const memberCount = members.length;
+export default function Projects() {
+  const displayProjects = projects.slice(0, 6);
 
   return (
-    <main className="bg-gray-950 text-white">
-      <section className="relative min-h-screen overflow-hidden">
-        <div className="relative mx-auto flex min-h-screen max-w-screen-xl flex-col items-start justify-center gap-8 px-6 py-16">
-          <h1 className="text-4xl font-bold leading-tight md:text-6xl">
-            Real projects
-            <span className="block text-blue-400">Built by the community.</span>
-          </h1>
-          <p className="max-w-2xl text-base text-gray-300 md:text-lg">
-            Explore products and tools crafted by our members—where creativity,
-            collaboration, and execution meet.
-          </p>
-
-          <div className="flex flex-wrap gap-4">
-            <button className="rounded-xl bg-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-400">
-              Propose a Project
-            </button>
-            <button className="rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold text-gray-200 transition hover:border-gray-500 hover:text-white">
-              View GitHub Org
-            </button>
-          </div>
-
-          <div className="mt-8 grid w-full grid-cols-2 gap-4 text-sm text-gray-300 md:grid-cols-4">
-            {[
-              { label: "Repositories", value: `${repoCount}+` },
-              { label: "Active builds", value: "10+" },
-              { label: "Collaborators", value: `${memberCount}+` },
-              { label: "Merged PRs", value: "300+" },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="rounded-xl border border-gray-800 bg-gray-900/50 p-4"
-              >
-                <div className="text-lg font-semibold text-white">
-                  {item.value}
-                </div>
-                <div className="text-gray-400">{item.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+    <main className="min-h-screen bg-gray-950 text-white">
+      {/* Hero Section */}
+      <section className="relative mx-auto max-w-5xl px-6 pt-24 pb-12 text-center">
+        <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl">
+          Projects with a{" "}
+          <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            Pulse
+          </span>
+        </h1>
+        <p className="mx-auto mt-4 max-w-2xl text-base text-gray-400 md:text-lg">
+          Tools, experiments, and community infrastructure built through practical
+          collaboration rather than handoffs.
+        </p>
       </section>
 
-      <section className="min-h-screen border-t border-gray-900">
-        <div className="mx-auto flex min-h-screen max-w-screen-xl flex-col justify-center gap-10 px-6 py-16">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-widest text-blue-400">
-                Showcase
-              </div>
-              <h2 className="text-3xl font-bold md:text-4xl">
-                Discover community-built work.
-              </h2>
-              <p className="max-w-2xl text-gray-300">
-                From internal tools to public-facing products, every project
-                reflects the energy and talent of our builders.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {["Open Source", "Tooling", "Web Apps"].map((label) => (
-                <span
-                  key={label}
-                  className="rounded-full border border-gray-800 bg-gray-900/60 px-3 py-1 text-xs text-gray-300"
-                >
-                  {label}
-                </span>
-              ))}
-            </div>
-          </div>
+      {/* Timeline Section */}
+      <section className="relative mx-auto max-w-5xl px-6 pb-28">
+        <div className="relative">
+          {/* Vertical spine line */}
+          <div className="absolute top-0 bottom-0 left-4 w-0.5 -translate-x-1/2 bg-gradient-to-b from-blue-500 via-gray-800 to-transparent md:left-1/2" />
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {repositories.map((repository: Repo, index: number) => (
-              <ProjectCard key={index} project={repository} />
-            ))}
+          <div className="space-y-12 md:space-y-16">
+            {displayProjects.map((project, index) => {
+              const isEven = index % 2 === 0;
+              return (
+                <div
+                  key={project.slug}
+                  className={`relative flex items-center md:justify-between ${
+                    isEven ? "md:flex-row-reverse" : "md:flex-row"
+                  }`}
+                >
+                  {/* Central Spine Node */}
+                  <div className="absolute left-4 z-10 flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full border-2 border-blue-500 bg-gray-950 md:left-1/2">
+                    <div className="h-1.5 w-1.5 rounded-full bg-blue-400" />
+                  </div>
+
+                  {/* Alternating Spacer */}
+                  <div className="hidden w-5/12 md:block" />
+
+                  {/* Timeline Card */}
+                  <div className="ml-10 w-full md:ml-0 md:w-5/12">
+                    <TimelineCard project={project} />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
