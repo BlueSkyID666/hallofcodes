@@ -1,3 +1,4 @@
+import ScrambleText from "@/components/ui/ScrambleText";
 import { WakaTimeUser } from "@/lib/wakatime/leaderboards";
 
 const crown = "👑";
@@ -71,11 +72,14 @@ export default function HallOfFame({ members }: { members: WakaTimeUser[] }) {
 
   return (
     <>
-      <div className="text-center mb-12">
-        <div className="text-3xl font-bold tracking-wide" data-aos="fade-up">
-          {crown} Hall of Fame
-        </div>
-        <p className="text-gray-400 mt-2" data-aos="fade-up">
+      <div className="mb-15">
+        <ScrambleText
+          as="h2"
+          text="Hall of Fame"
+          className="text-4xl font-semibold leading-tight text-white md:text-5xl"
+          aria-label="Hall of Fame"
+        />
+        <p className="mt-5 max-w-md leading-7 text-gray-400">
           Every action counts. Here are the top coders in our community based on
           their WakaTime coding time. Keep coding to see your name here!
         </p>

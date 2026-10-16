@@ -1,4 +1,4 @@
-import { projects } from "@/lib/projects"; 
+import { projects } from "@/lib/projects";
 import Link from "next/link";
 import Image from "next/image";
 import { getMembers, Member } from "@/lib/github/members";
@@ -124,9 +124,6 @@ export default async function Home() {
           <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
             <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
               <div className="lg:sticky lg:top-28 lg:self-start">
-                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300">
-                  Built in public
-                </p>
                 <ScrambleText
                   as="h2"
                   text="A community shaped by the work."
@@ -229,9 +226,6 @@ export default async function Home() {
           <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
             <div className="flex flex-col justify-between gap-6 border-b border-white/10 pb-8 md:flex-row md:items-end">
               <div>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
-                  People behind the commits
-                </p>
                 <ScrambleText
                   as="h2"
                   text="Meet the builders"
@@ -292,73 +286,24 @@ export default async function Home() {
           }}
         >
           <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-            <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
-              <div>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-300">
-                  Open source portfolio
-                </p>
-                <ScrambleText
-                  as="h2"
-                  text="Projects with a pulse"
-                  durationMs={2000}
-                  className="text-4xl font-semibold leading-tight text-white md:text-5xl"
-                  aria-label="Some of our projects"
-                />
-                <p className="mt-5 max-w-md leading-7 text-gray-400">
-                  Tools, experiments, and community infrastructure built through
-                  practical collaboration rather than handoffs.
-                </p>
-              </div>
-
-              {repositories[0] && (
-                <a
-                  href={repositories[0].url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group grid overflow-hidden border border-white/10 bg-black/20 md:grid-cols-[1.1fr_0.9fr]"
-                >
-                  <div className="relative min-h-72 overflow-hidden">
-                    <Image
-                      src={`https://opengraph.githubassets.com/1/hallofcodes/${repositories[0].name}`}
-                      alt={repositories[0].name}
-                      fill
-                      className="object-cover transition duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                  </div>
-                  <div className="flex flex-col justify-between p-7 md:p-9">
-                    <div>
-                      <span className="text-xs font-semibold uppercase tracking-[0.25em] text-amber-300">
-                        Featured repository
-                      </span>
-                      <h3 className="mt-4 text-3xl font-semibold text-white">
-                        {repositories[0].name}
-                      </h3>
-                      <p className="mt-4 leading-7 text-gray-400">
-                        {repositories[0].description ||
-                          "An open-source project maintained by Hall of Codes."}
-                      </p>
-                    </div>
-                    <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-5">
-                      <span className="flex items-center gap-2 text-sm text-gray-300">
-                        <FontAwesomeIcon icon={faStar} />
-                        {repositories[0].stars}
-                      </span>
-                      <span className="inline-flex items-center gap-3 text-sm font-semibold text-cyan-200">
-                        View repository
-                        <FontAwesomeIcon icon={faArrowRight} />
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              )}
+            <div>
+              <ScrambleText
+                as="h2"
+                text="Open Source Projects"
+                durationMs={2000}
+                className="text-4xl font-semibold leading-tight text-white md:text-5xl"
+                aria-label="Some of our projects"
+              />
+              <p className="mt-5 max-w-md leading-7 text-gray-400">
+                Tools, experiments, and community infrastructure built through
+                practical collaboration rather than handoffs.
+              </p>
             </div>
 
             <div className="mt-8 grid gap-5 md:grid-cols-2">
-            {projects.slice(0, 4).map((project) => (
-  <TimelineCard key={project.slug} project={project} />
-))}
-
+              {projects.slice(0, 6).map((project) => (
+                <TimelineCard key={project.slug} project={project} />
+              ))}
             </div>
           </div>
         </section>
@@ -372,9 +317,6 @@ export default async function Home() {
           <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
             <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
               <div>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-amber-300">
-                  Field notes
-                </p>
                 <ScrambleText
                   as="h2"
                   text="What we are learning"
@@ -441,9 +383,6 @@ export default async function Home() {
           <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
             <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
               <div>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-200">
-                  Our north star
-                </p>
                 <ScrambleText
                   as="h2"
                   text="Build with people, not around them."
@@ -493,9 +432,6 @@ export default async function Home() {
           <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
             <div className="grid gap-12 lg:grid-cols-[0.55fr_1.45fr]">
               <div>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-amber-200">
-                  Founders
-                </p>
                 <ScrambleText
                   as="h2"
                   text="The first commit"

@@ -81,7 +81,7 @@ export async function fetchTrackedMembers() {
 
   const found = new Map<string, WakaTimeUser>();
 
-  for (let page = 1; page <= 15; page++) {
+  for (let page = 1; page <= 60; page++) {
     const users = await fetchLeaderboardPage(page);
 
     for (const user of users) {

@@ -29,27 +29,6 @@ export default function TimelineCard({ project }: { project: Project }) {
 
       <div className="flex flex-1 flex-col justify-between p-6">
         <div>
-          {/* Author Attribution */}
-          {project.author && (
-            <div className="mb-2 flex items-center gap-1.5 text-xs text-gray-500">
-              <span>Maintained by</span>
-              {project.authorUrl ? (
-                <a
-                  href={project.authorUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-medium text-blue-400 hover:underline"
-                >
-                  @{project.author}
-                </a>
-              ) : (
-                <span className="font-medium text-gray-300">
-                  @{project.author}
-                </span>
-              )}
-            </div>
-          )}
-
           {/* Title */}
           <h3 className="text-xl font-bold tracking-tight text-white transition group-hover:text-blue-400">
             {project.name}
